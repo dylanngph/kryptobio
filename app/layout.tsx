@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
+import { headers } from "next/headers";
+
+import { cookieToInitialState } from "wagmi";
+import "@/styles/globals.css";
+import MainNav from "@/components/layout/main-nav";
+import Footer from "@/components/layout/footer";
+import QueryContextProvider from "@/libs/contexts/query.context";
+import WagmiProvider from "@/libs/contexts/wagmi.context";
+import { getWagmiConfig } from "@/configs/web3/wagmi.config";
+import XionProvider from "@/libs/contexts/xion.context";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,12 +32,25 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialState = cookieToInitialState(
+    getWagmiConfig(),
+    headers().get("cookie")
+  );
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <XionProvider>
+          <WagmiProvider initialState={initialState}>
+            <QueryContextProvider>
+              <MainNav />
+              {children}
+              <Footer />
+            </QueryContextProvider>
+          </WagmiProvider>
+        </XionProvider>
       </body>
     </html>
   );
