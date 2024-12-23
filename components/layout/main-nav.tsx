@@ -8,6 +8,7 @@ import Link from "next/link";
 import { cn } from "@/libs/utils";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import ConnectButton from "../common/connect-button";
 
 const MainNav = () => {
   const pathname = usePathname();
@@ -49,7 +50,8 @@ const MainNav = () => {
           placeholder="Search creators, collections,..."
           className="rounded-full shadow-none min-w-[320px]"
         />
-        <Button className="uppercase rounded-full">Connect in</Button>
+        {/* <Button className="uppercase rounded-full">Connect in</Button> */}
+        <ConnectButton />
       </div>
     </div>
   );

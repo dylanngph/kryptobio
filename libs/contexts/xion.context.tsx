@@ -2,7 +2,6 @@
 
 import React from "react";
 import { AbstraxionProvider } from "@burnt-labs/abstraxion";
-
 import "@burnt-labs/abstraxion/dist/index.css";
 import "@burnt-labs/ui/dist/index.css";
 
